@@ -1,0 +1,1 @@
+export const testModulesImport = () => console.log('Hello world!');
