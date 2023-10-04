@@ -14,10 +14,10 @@ export const createNodeTemplate = () =>
         },
         $(
             go.Panel, 
-            go.Panel.Spot, 
+            go.Panel.Spot,
             familyMemberInfoPanel(),
             aliveIndicator(),
-            photoPanel()
+            photoPanel(),
         )
     );
 
@@ -32,7 +32,15 @@ const familyMemberInfoPanel = () =>
             fromSpot: go.Spot.Bottom,
         },
         containerRectangle(),
-        nameTextBlock()
+        $(
+            go.Panel,
+            go.Panel.Vertical,
+            {
+                margin: new go.Margin(30, 10, 10, 10),
+            },
+            nameTextBlock(),
+            lifeSpanTextBlock()
+        )
     );
 
 const aliveIndicator = () =>
@@ -59,8 +67,7 @@ const photoPanel = (size = 60) =>
         go.Panel,
         go.Panel.Spot,
         {
-            alignment: go.Spot.Center,
-            alignmentFocus: go.Spot.MiddleBottom,
+            alignment: go.Spot.Top,
             portId: 'child',
             toLinkable: true,
             toSpot: go.Spot.Top,
@@ -112,10 +119,20 @@ const containerRectangle = () =>
 const nameTextBlock = () => 
     $(go.TextBlock,
         {
-            margin: new go.Margin(40, 10, 10, 10),
             minSize: new go.Size(100, NaN),
             textAlign: 'center',
             editable: true,
         },
         new go.Binding('text', 'name').makeTwoWay()
+    );
+
+const lifeSpanTextBlock = () => 
+    $(go.TextBlock,
+        {
+            minSize: new go.Size(100, NaN),
+            textAlign: 'center',
+        },
+        new go.Binding('text', '', ({ birthYear, deathYear = ''}) =>
+            `${birthYear} - ${deathYear}`
+        )
     );
