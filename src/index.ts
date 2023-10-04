@@ -12,4 +12,10 @@ window.addEventListener('load', () => {
 
     saveButton.onclick = () => localStorage.setItem('diagram', diagram.model.toJson());
     loadButton.onclick = () => diagram.model = go.Model.fromJson(localStorage.getItem('diagram'));
+
+    const addGirlButton = document.getElementById('addGirlButton') as HTMLButtonElement;
+    const addBoyButton = document.getElementById('addBoyButton') as HTMLButtonElement;
+
+    addGirlButton.onclick = () => diagram.model.addNodeData({ name: 'new girl', gender: 'F'});
+    addBoyButton.onclick = () => diagram.model.addNodeData({ name: 'new boy', gender: 'M'});
 });

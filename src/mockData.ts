@@ -1,15 +1,15 @@
 export const nodeDataArray = [
-    { key: 0, name: "George V", gender: "M", birthYear: "1865", deathYear: "1936", reign: "1910-1936" },
-    { key: 1, parent: 0, name: "Edward VIII", gender: "M", birthYear: "1894", deathYear: "1972", reign: "1936" },
-    { key: 2, parent: 0, name: "George VI", gender: "M", birthYear: "1895", deathYear: "1952", reign: "1936-1952" },
-    { key: 7, parent: 2, name: "Elizabeth II", gender: "F", birthYear: "1926", reign: "1952-" },
-    { key: 16, parent: 7, name: "Charles, Prince of Wales", gender: "M", birthYear: "1948" },
-    { key: 38, parent: 16, name: "Prince William", gender: "M", birthYear: "1982" },
-    { key: 39, parent: 16, name: "Prince Harry of Wales", gender: "M", birthYear: "1984" },
-    { key: 17, parent: 7, name: "Anne, Princess Royal", gender: "F", birthYear: "1950" },
+    { key: 0, name: "George V", gender: "M", birthYear: "1865", deathYear: "1936", reign: "1910-1936", photo: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Kinggeorgev1928.jpg"},
+    { key: 1, parent: 0, name: "Edward VIII", gender: "M", birthYear: "1894", deathYear: "1972", reign: "1936", photo: "https://upload.wikimedia.org/wikipedia/commons/5/51/Prince-Edward-Duke-of-Windsor-King-Edward-VIII.jpg" },
+    { key: 2, parent: 0, name: "George VI", gender: "M", birthYear: "1895", deathYear: "1952", reign: "1936-1952", photo: "https://upload.wikimedia.org/wikipedia/commons/7/73/Georg_VI_England.jpg" },
+    { key: 7, parent: 2, name: "Elizabeth II", gender: "F", birthYear: "1926", reign: "1952-", photo: "https://upload.wikimedia.org/wikipedia/commons/5/50/Queen_Elizabeth_II_March_2015.jpg" },
+    { key: 16, parent: 7, name: "Charles, Prince of Wales", gender: "M", birthYear: "1948", photo: "https://upload.wikimedia.org/wikipedia/commons/e/e2/2019_Reuni%C3%A3o_Bilateral_com_o_Pr%C3%ADncipe_Charles_-_48948389972_%28cropped%29.jpg" },
+    { key: 38, parent: 16, name: "Prince William", gender: "M", birthYear: "1982", photo: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Prince_William%2C_Duke_of_Cambridge.jpg"},
+    { key: 39, parent: 16, name: "Prince Harry of Wales", gender: "M", birthYear: "1984", photo: "https://upload.wikimedia.org/wikipedia/commons/3/32/Lancering_Invictus_Games_2020-7_%28cropped%29.jpg" },
+    { key: 17, parent: 7, name: "Anne, Princess Royal", gender: "F", birthYear: "1950", photo: "https://upload.wikimedia.org/wikipedia/commons/7/76/Princess_Anne_October_2015.jpg" },
     { key: 40, parent: 17, name: "Peter Phillips", gender: "M", birthYear: "1977" },
     { key: 82, parent: 40, name: "Savannah Phillips", gender: "F", birthYear: "2010" },
-    { key: 41, parent: 17, name: "Zara Phillips", gender: "F", birthYear: "1981" },
+    { key: 41, parent: 17, name: "Zara Phillips", gender: "F", birthYear: "1981", photo: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Zara_Phillips_%282012%29.jpg" },
     { key: 18, parent: 7, name: "Prince Andrew", gender: "M", birthYear: "1960" },
     { key: 42, parent: 18, name: "Princess Beatrice of York", gender: "F", birthYear: "1988" },
     { key: 43, parent: 18, name: "Princess Eugenie of York", gender: "F", birthYear: "1990" },
@@ -86,4 +86,4 @@ export const nodeDataArray = [
 
 export const linkDataArray = nodeDataArray
     .filter((member) => member.parent !== undefined)
-    .map(({ key, parent }) => ({ from: parent, to: key }));
+    .map(({ key, parent }) => ({ from: parent, to: key, fromPort: 'parent', toPort: 'child'  }));

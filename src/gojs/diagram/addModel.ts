@@ -9,6 +9,10 @@ export const addModel = (diagram: go.Diagram) => {
         diagram.model = go.GraphLinksModel.fromJson(saveDiagram);
     } else {
         const model = new go.GraphLinksModel();
+
+        model.linkFromPortIdProperty = 'fromPort',
+        model.linkToPortIdProperty = 'toPort',
+
         model.nodeDataArray = nodeDataArray;
         model.linkDataArray = linkDataArray;
 
