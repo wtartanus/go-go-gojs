@@ -1,6 +1,6 @@
 import * as go from 'gojs';
 
-import { nodeDataArray, linkDataArray, nodeDataArrayWithGroups } from '../../mockData';
+import { linkDataArray, nodeDataArrayWithGroups } from '../../mockData';
 
 export const addModel = (diagram: go.Diagram) => {
     const saveDiagram = localStorage.getItem('diagram');

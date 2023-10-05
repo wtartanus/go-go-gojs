@@ -14,7 +14,11 @@ window.addEventListener('load', () => {
     const saveButton = document.getElementById('saveButton') as HTMLButtonElement;
     const loadButton = document.getElementById('loadButton') as HTMLButtonElement;
 
-    saveButton.onclick = () => localStorage.setItem('diagram', diagram.model.toJson());
+    saveButton.onclick = () => {
+        localStorage.setItem('diagram', diagram.model.toJson());
+        saveButton.setAttribute('disabled', 'true');
+    };
+
     loadButton.onclick = () => diagram.model = go.Model.fromJson(localStorage.getItem('diagram'));
 
     const selectedPerson = document.getElementById('selectedPerson');
@@ -28,6 +32,12 @@ window.addEventListener('load', () => {
             selectedPerson.innerText = '';
         } else {
             selectedPerson.innerText = selection.data.name;
+        }
+    });
+
+    diagram.addDiagramListener('Modified', (e) => {
+        if (saveButton.disabled) {
+            saveButton.removeAttribute('disabled');
         }
     });
 });
