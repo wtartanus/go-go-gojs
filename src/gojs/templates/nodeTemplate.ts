@@ -1,6 +1,7 @@
 import * as go from 'gojs';
 
 import { WOMAN_AVATAR, MAN_AVATAR } from '../consts/avatars';
+import { mouseDrop } from '../utils/mouseDrop';
 
 const $ = go.GraphObject.make;
 
@@ -11,6 +12,7 @@ export const createNodeTemplate = () =>
             isShadowed: true,
             shadowColor: 'rgba(0, 0, 0, 0.3)',
             shadowBlur: 20,
+            mouseDrop
         },
         $(
             go.Panel, 
@@ -153,6 +155,6 @@ const lifeSpanTextBlock = () =>
             textAlign: 'center',
         },
         new go.Binding('text', '', ({ birthYear, deathYear = ''}) =>
-            `${birthYear} - ${deathYear}`
+            birthYear ? `${birthYear} - ${deathYear}` : ''
         )
     );

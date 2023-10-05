@@ -1,5 +1,7 @@
 import * as go from 'gojs';
 
+import { mouseDrop } from '../utils/mouseDrop';
+
 const $ = go.GraphObject.make;
 
 const groupLayout = new go.TreeLayout();
@@ -11,6 +13,7 @@ export const createGroupTemplate = () =>
         go.Group.Spot,
         {
             layout: groupLayout,
+            mouseDrop
         },
         $(
             go.Panel,
@@ -22,7 +25,7 @@ export const createGroupTemplate = () =>
                     fill: 'transparent',
                 }
             ),
-            $(go.Placeholder, { padding: 15 })
+            $(go.Placeholder, { padding: 25 })
         ),
         $(
             go.TextBlock,
