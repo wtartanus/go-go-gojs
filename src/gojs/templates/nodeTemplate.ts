@@ -117,6 +117,7 @@ const crownPanel = () =>
         go.Panel.Spot,
         {
             alignment: new go.Spot(0.5, -0.8),
+            visible: false
         },
         $(
             go.Picture, 'https://cdn1.iconfinder.com/data/icons/england-cartoon/512/g5323-512.png',
@@ -126,7 +127,7 @@ const crownPanel = () =>
                 imageStretch: go.GraphObject.Fill,
             }
         ),
-        new go.Binding('visible', 'reign', ({ reign }) => !!reign)
+        new go.Binding('visible', 'reign', (reign) => !!reign)
     );
 
 const containerRectangle = () => 
