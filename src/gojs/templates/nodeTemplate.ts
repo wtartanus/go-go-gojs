@@ -5,6 +5,19 @@ import { mouseDrop } from '../utils/mouseDrop';
 
 const $ = go.GraphObject.make;
 
+const toggleHighlight = (obj: go.Part, reverse: boolean = false) => {
+    const background = obj.findObject('mainShape') as go.Shape;
+    const color = reverse ? '#fff' : '#ebebeb';
+    background.fill = color;
+};
+
+const textEdited = (textBlock: go.TextBlock, oldText: string, newText: string) => {
+    if (!newText) {
+        textBlock.text = oldText;
+        alert('The name field cannot be empty');
+    }
+};
+
 export const createNodeTemplate = () =>
     $(
         go.Node, 
@@ -12,7 +25,10 @@ export const createNodeTemplate = () =>
             isShadowed: true,
             shadowColor: 'rgba(0, 0, 0, 0.3)',
             shadowBlur: 20,
-            mouseDrop
+            movable: true,
+            mouseDrop,
+            mouseEnter: (_, node: go.Node) => toggleHighlight(node),
+            mouseLeave: (_, node: go.Node) => toggleHighlight(node, true)
         },
         $(
             go.Panel, 
@@ -135,7 +151,8 @@ const crownPanel = () =>
 const containerRectangle = () => 
     $(go.Shape, 'RoundedRectangle', {
             fill: '#fff',
-            strokeWidth: 0
+            strokeWidth: 0,
+            name: 'mainShape'
     });
 
 const nameTextBlock = () => 
@@ -144,6 +161,7 @@ const nameTextBlock = () =>
             minSize: new go.Size(100, NaN),
             textAlign: 'center',
             editable: true,
+            textEdited,
         },
         new go.Binding('text', 'name').makeTwoWay()
     );
