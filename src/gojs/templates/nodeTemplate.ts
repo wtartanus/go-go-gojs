@@ -126,7 +126,7 @@ const crownPanel = () =>
                 imageStretch: go.GraphObject.Fill,
             }
         ),
-        new go.Binding('visible', '', ({ reign }) => !!reign)
+        new go.Binding('visible', 'reign', ({ reign }) => !!reign)
     );
 
 const containerRectangle = () => 
