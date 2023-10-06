@@ -2,6 +2,7 @@ import * as go from 'gojs';
 
 import { WOMAN_AVATAR, MAN_AVATAR } from '../consts/avatars';
 import { mouseDrop } from '../utils/mouseDrop';
+import { createNativeTooltipTemplate } from './nativeTooltipTemplate';
 
 const $ = go.GraphObject.make;
 
@@ -26,9 +27,10 @@ export const createNodeTemplate = () =>
             shadowColor: 'rgba(0, 0, 0, 0.3)',
             shadowBlur: 20,
             movable: true,
+            toolTip: createNativeTooltipTemplate(),
             mouseDrop,
             mouseEnter: (_, node: go.Node) => toggleHighlight(node),
-            mouseLeave: (_, node: go.Node) => toggleHighlight(node, true)
+            mouseLeave: (_, node: go.Node) => toggleHighlight(node, true),
         },
         $(
             go.Panel, 

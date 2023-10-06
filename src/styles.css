@@ -34,10 +34,25 @@ body {
 
 #diagram {
     flex: 1;
+    position: relative;
+    display: flex;
 }
 
 #selectionInfo {
     display: flex;
     align-items: center;
     margin-left: 10px;
+}
+
+#customTooltip {
+    display: none;
+    position: absolute;
+    background: white;
+    box-shadow: 0 1px 6px #b0b0b0;
+    z-index: 2;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .9rem;
 }

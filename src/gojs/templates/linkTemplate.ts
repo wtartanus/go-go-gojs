@@ -1,5 +1,7 @@
 import * as go from 'gojs';
 
+import { createCustomHtmlTooltip } from './customHtmlTooltipTemplate';
+
 const $ = go.GraphObject.make;
 
 export const createLinkTemplate = () => 
@@ -8,7 +10,9 @@ export const createLinkTemplate = () =>
         {
             routing: go.Link.Orthogonal,
             corner: 10,
-            fromShortLength: 2
+            fromShortLength: 2,
+            curve: go.Link.JumpGap,
+            toolTip: createCustomHtmlTooltip()
         },
         linkShape(),
         arrowHead(),
