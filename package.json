@@ -8,6 +8,7 @@
     "start": "webpack serve"
   },
   "devDependencies": {
+    "@types/merge-images": "^1.2.2",
     "css-loader": "^6.8.1",
     "html-webpack-plugin": "^5.5.3",
     "style-loader": "^3.3.3",
@@ -19,6 +20,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "gojs": "^2.3.11"
+    "gojs": "^2.3.11",
+    "merge-images": "^2.0.0"
   }
 }
