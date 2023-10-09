@@ -120,6 +120,7 @@ const photo = (size: number) =>
             {
                 imageStretch: go.GraphObject.UniformToFill,
                 desiredSize: new go.Size(size - 1, size - 1),
+                sourceCrossOrigin: () => 'anonymous'
             },
             new go.Binding('source', '', (model) =>
                 model.photo

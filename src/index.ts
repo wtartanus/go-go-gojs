@@ -1,8 +1,11 @@
 import * as go from 'gojs';
 
 import './styles.css';
+
 import { createDiagram } from './gojs/diagram/diagram';
 import { createPalette } from './gojs/palette/palette';
+import { exportToPng } from './gojs/utils/exportToPng';
+import { exportToSvg } from './gojs/utils/exportToSvg';
 
 window.addEventListener('load', () => {
     const diagramDiv = document.getElementById('diagram');
@@ -20,6 +23,12 @@ window.addEventListener('load', () => {
     };
 
     loadButton.onclick = () => diagram.model = go.Model.fromJson(localStorage.getItem('diagram'));
+
+    const exportToPngButton = document.getElementById('exportToPngButton') as HTMLButtonElement;
+    exportToPngButton.onclick = () => exportToPng(diagram);
+
+    const exportToSvgButton = document.getElementById('exportToSvgButton') as HTMLButtonElement;
+    exportToSvgButton.onclick = () => exportToSvg(diagram);
 
     const selectedPerson = document.getElementById('selectedPerson');
     diagram.addDiagramListener('ChangedSelection', () => {
