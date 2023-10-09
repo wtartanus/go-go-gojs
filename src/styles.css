@@ -45,7 +45,6 @@ body {
 }
 
 #customTooltip {
-    display: none;
     position: absolute;
     background: white;
     box-shadow: 0 1px 6px #b0b0b0;
@@ -56,3 +55,21 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: .9rem;
 }
+
+.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.fade-in {
+    display: block;
+    opacity: 1;
+    transition: opacity .5s;
+}
+  
+.fade-out {
+    opacity: 0;
+    transition: opacity .5s;
+    pointer-events: none;
+}
+  

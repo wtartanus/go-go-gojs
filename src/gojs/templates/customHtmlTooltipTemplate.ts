@@ -10,16 +10,18 @@ const show = (link: go.Link, diagram: go.Diagram) => {
     const { from, to } = link.data;
     const fromName = diagram.model.findNodeDataForKey(from).name;
     const toName = diagram.model.findNodeDataForKey(to).name;
-    console.log(document.getElementById('customTooltipFrom'));
-    console.log(document.getElementById('customTooltipTo'));
     document.getElementById('customTooltipFrom').innerHTML = '<b>From:</b>' + fromName;
     document.getElementById('customTooltipTo').innerHTML = '<b>To:</b>' + toName;
-    tooltipDiv.style.display = 'block';
+
+    tooltipDiv.classList.remove('hidden');
+    tooltipDiv.classList.remove('fade-out');
+    tooltipDiv.classList.add('fade-in');
 };
 
 const hide = () => {
     const tooltipDiv = document.getElementById('customTooltip');
-    tooltipDiv.style.display = 'none';
+    tooltipDiv.classList.remove('fade-in');
+    tooltipDiv.classList.add('fade-out');
 };
 
 export const createCustomHtmlTooltip = () => $(
