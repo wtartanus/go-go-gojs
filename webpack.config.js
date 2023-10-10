@@ -11,6 +11,9 @@ module.exports = {
     },
     resolve: {
         extensions: ['.ts', '.js'],
+        alias: {
+            gojs: require.resolve('gojs/release/go-debug'),
+        }
     },
     module: {
         rules: [
