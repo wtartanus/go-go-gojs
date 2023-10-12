@@ -13,6 +13,7 @@ export const createGroupTemplate = () =>
         go.Group.Spot,
         {
             layout: groupLayout,
+            layerName: 'GroupLayer',
             mouseDrop
         },
         $(
@@ -40,10 +41,13 @@ export const createGroupTemplate = () =>
             go.Panel,
             go.Panel.Auto,
             {
-                alignment: new go.Spot(.5, 0, 0, 12),
-                alignmentFocus: go.Spot.Right,
-                margin: 0,
+                alignment: new go.Spot(.5, 0, 0, 0),
+                alignmentFocus: go.Spot.TopRight
             },
+            new go.Binding('alignment', '', (_, targetObj) => {
+                const { width } = targetObj.part.findObject('NAME_TEXT_BLOCK').actualBounds;
+                return new go.Spot(.5, 0, width / 2, 0);
+            }).ofObject(),
             $(
                 go.Shape,
                 'RoundedRectangle',
@@ -56,7 +60,7 @@ export const createGroupTemplate = () =>
                 {
                     font: '14px Helvetica',
                     text: '',
-                    textAlign: 'right'
+                    textAlign: 'end',
                 },
                 new go.Binding('text', '', ({ data }, { diagram }) => {
                     const { key } = data;

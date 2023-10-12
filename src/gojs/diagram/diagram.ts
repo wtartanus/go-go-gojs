@@ -2,6 +2,7 @@ import * as go from 'gojs';
 import { addLayout } from './addLayout';
 import { addModel } from './addModel';
 import { registerTemplates } from './registerTemplates';
+import { addLayers } from './addLayers';
 
 const $ = go.GraphObject.make;
 
@@ -12,6 +13,7 @@ export const createDiagram = (diagramDiv: HTMLDivElement) => {
     addModel(diagram);
     addLayout(diagram);
     registerTemplates(diagram);
+    addLayers(diagram);
 
     (window as any).goJsDiagram = diagram;
     

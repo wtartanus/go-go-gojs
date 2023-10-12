@@ -6,6 +6,7 @@ import { createDiagram } from './gojs/diagram/diagram';
 import { createPalette } from './gojs/palette/palette';
 import { exportToPng } from './gojs/utils/exportToPng';
 import { exportToSvg } from './gojs/utils/exportToSvg';
+import { toggleGroups } from './gojs/diagram/toggleGroups';
 
 window.addEventListener('load', () => {
     const diagramDiv = document.getElementById('diagram');
@@ -29,6 +30,9 @@ window.addEventListener('load', () => {
 
     const exportToSvgButton = document.getElementById('exportToSvgButton') as HTMLButtonElement;
     exportToSvgButton.onclick = () => exportToSvg(diagram);
+
+    const toggleGroupsButton = document.getElementById('toggleGroupsButton') as HTMLButtonElement;
+    toggleGroupsButton.onclick = () => toggleGroups(diagram);
 
     const selectedPerson = document.getElementById('selectedPerson');
     diagram.addDiagramListener('ChangedSelection', () => {
