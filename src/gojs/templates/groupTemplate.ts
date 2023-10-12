@@ -31,8 +31,40 @@ export const createGroupTemplate = () =>
             go.TextBlock,
             {
                 alignment: new go.Spot(.5, 0, 0, -10),
-                font: '20px Helvetica'
+                font: '20px Helvetica',
+                name: 'NAME_TEXT_BLOCK'
             },
             new go.Binding('text', 'name')
-        )
+        ),
+        $(
+            go.Panel,
+            go.Panel.Auto,
+            {
+                alignment: new go.Spot(.5, 0, 0, 12),
+                alignmentFocus: go.Spot.Right,
+                margin: 0,
+            },
+            $(
+                go.Shape,
+                'RoundedRectangle',
+                {
+                    fill: 'transparent',
+                }
+            ),
+            $(
+                go.TextBlock,
+                {
+                    font: '14px Helvetica',
+                    text: '',
+                    textAlign: 'right'
+                },
+                new go.Binding('text', '', ({ data }, { diagram }) => {
+                    const { key } = data;
+                    const { nodeDataArray } = diagram.model;
+                    const membersCount = nodeDataArray
+                        .filter(({ group }: { group: number }) => group === key).length;
+                    return `Members ${membersCount}`;
+                }).ofObject(),
+            ),
+        ),
     );

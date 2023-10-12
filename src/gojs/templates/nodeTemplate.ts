@@ -120,7 +120,11 @@ const photo = (size: number) =>
             {
                 imageStretch: go.GraphObject.UniformToFill,
                 desiredSize: new go.Size(size - 1, size - 1),
-                sourceCrossOrigin: () => 'anonymous'
+                sourceCrossOrigin: () => 'anonymous',
+                errorFunction: (picture: go.Picture, event: Event) => {
+                    const data = picture.part.data;
+                    picture.source = data.gender === 'F' ? WOMAN_AVATAR : MAN_AVATAR;
+                }
             },
             new go.Binding('source', '', (model) =>
                 model.photo
