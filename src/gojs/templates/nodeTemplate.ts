@@ -31,6 +31,9 @@ export const createNodeTemplate = () =>
             mouseDrop,
             mouseEnter: (_, node: go.Node) => toggleHighlight(node),
             mouseLeave: (_, node: go.Node) => toggleHighlight(node, true),
+            selectionChanged: (part: go.Part) => {
+                part.layerName = part.isSelected ? 'Foreground' : 'ForegroundBackLayer';
+            }
         },
         $(
             go.Panel, 
