@@ -7,6 +7,8 @@ import { createPalette } from './gojs/palette/palette';
 import { exportToPng } from './gojs/utils/exportToPng';
 import { exportToSvg } from './gojs/utils/exportToSvg';
 import { toggleGroups } from './gojs/diagram/toggleGroups';
+import { redo, undo } from './gojs/utils/undoRedo';
+import { addBoy, addGirl } from './gojs/utils/addBoyGirl';
 
 window.addEventListener('load', () => {
     const diagramDiv = document.getElementById('diagram');
@@ -14,6 +16,12 @@ window.addEventListener('load', () => {
 
     const paletteDiv = document.getElementById('palette') as HTMLDivElement;
     createPalette(paletteDiv);
+
+    const addGirlButton = document.getElementById('addGirlButton') as HTMLButtonElement;
+    addGirlButton.onclick = () => addGirl(diagram);
+
+    const addBoyButton = document.getElementById('addBoyButton') as HTMLButtonElement;
+    addBoyButton.onclick = () => addBoy(diagram);
 
     const saveButton = document.getElementById('saveButton') as HTMLButtonElement;
     const loadButton = document.getElementById('loadButton') as HTMLButtonElement;
@@ -34,6 +42,11 @@ window.addEventListener('load', () => {
     const toggleGroupsButton = document.getElementById('toggleGroupsButton') as HTMLButtonElement;
     toggleGroupsButton.onclick = () => toggleGroups(diagram);
 
+    const undoButton = document.getElementById('undoButton') as HTMLButtonElement;
+    undoButton.onclick = () => undo(diagram);
+    const redoButton = document.getElementById('redoButton') as HTMLButtonElement;
+    redoButton.onclick = () => redo(diagram);
+
     const selectedPerson = document.getElementById('selectedPerson');
     diagram.addDiagramListener('ChangedSelection', () => {
         if (diagram.selection.count !== 1) {
@@ -51,6 +64,12 @@ window.addEventListener('load', () => {
     diagram.addDiagramListener('Modified', (e) => {
         if (saveButton.disabled) {
             saveButton.removeAttribute('disabled');
+        }
+    });
+
+    diagram.model.addChangedListener((event: go.ChangedEvent) => {
+        if (event.change === go.ChangedEvent.Transaction && event.propertyName === 'RolledBackTransaction') {
+            console.log('transaction rolled back');
         }
     });
 });

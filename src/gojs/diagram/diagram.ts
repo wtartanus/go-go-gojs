@@ -14,6 +14,7 @@ export const createDiagram = (diagramDiv: HTMLDivElement) => {
     addLayout(diagram);
     registerTemplates(diagram);
     addLayers(diagram);
+    diagram.undoManager.isEnabled = true;
 
     (window as any).goJsDiagram = diagram;
     
