@@ -47,8 +47,13 @@ export const crowningButton = () => $(
             go.TextBlock,
             {
                 margin: 3,
-                text: 'Crown / Decrown'
-            }
+                text: ''
+            },
+            new go.Binding(
+                'text',
+                '',
+                (_, obj) => obj.part.adornedPart.data.reign ? 'Decrown' : 'Crown'
+            ),
         )
     ),
 );
