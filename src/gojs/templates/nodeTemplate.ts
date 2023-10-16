@@ -3,6 +3,8 @@ import * as go from 'gojs';
 import { WOMAN_AVATAR, MAN_AVATAR } from '../consts/avatars';
 import { mouseDrop } from '../utils/mouseDrop';
 import { createNativeTooltipTemplate } from './nativeTooltipTemplate';
+import { nodeSelectionAdornment } from './nodeSelectionAdornment';
+import { crowningButton } from './crowningButton';
 
 const $ = go.GraphObject.make;
 
@@ -19,6 +21,22 @@ const textEdited = (textBlock: go.TextBlock, oldText: string, newText: string) =
     }
 };
 
+const toggleCrowningButton = (isSelected: boolean, node: go.Node) => {
+    if (isSelected) {
+        if (!node.findAdornment('crowningButton')) {
+            const adornment = crowningButton();
+            adornment.adornedObject = node;
+            node.addAdornment('crowningButton', adornment);
+        }
+    } else {
+        if (node.findAdornment('crowningButton')) {
+            node.removeAdornment('crowningButton');
+        }
+    }
+
+    return (node as any)._gohashid;
+};
+
 export const createNodeTemplate = () =>
     $(
         go.Node, 
@@ -33,7 +51,9 @@ export const createNodeTemplate = () =>
             mouseLeave: (_, node: go.Node) => toggleHighlight(node, true),
             selectionChanged: (part: go.Part) => {
                 part.layerName = part.isSelected ? 'Foreground' : 'ForegroundBackLayer';
-            }
+            },
+            selectionAdornmentTemplate: nodeSelectionAdornment(),
+            selectionObjectName: 'mainShape'
         },
         $(
             go.Panel, 
@@ -42,7 +62,12 @@ export const createNodeTemplate = () =>
             aliveIndicator(),
             photoPanel(),
             crownPanel(),
-        )
+        ),
+        new go.Binding(
+            '_gohashid',
+            'isSelected',
+            toggleCrowningButton
+        ).ofObject('')
     );
 
 const familyMemberInfoPanel = () =>
@@ -79,10 +104,15 @@ const aliveIndicator = () =>
             fill: '#66c458'
         },
         new go.Binding('fill', '', data => data.deathYear ? '#474747' : '#66c458'),
+        new go.Binding(
+            'alignment',
+            'isSelected',
+            (isSelected) => isSelected ? new go.Spot(0.5, 0, 0, -1.5) : new go.Spot(0.5, 0, 0, 0)
+        ),
         new go.Binding('desiredSize', '', (obj) => {
             obj.part.ensureBounds();
             const { width } = obj.actualBounds;
-            return new go.Size(width - 2, 5);
+            return new go.Size(width - 10, 5);
         }).ofObject('FAMILY_MEMBER_INFO_PANEL')
     );
 
@@ -146,7 +176,7 @@ const crownPanel = () =>
         {
             alignmentFocus: go.Spot.BottomRight,
             alignment: new go.Spot(0.6, 0),
-            visible: false,
+            opacity: 0,
             angle: -40
         },
         $(
@@ -157,7 +187,7 @@ const crownPanel = () =>
                 imageStretch: go.GraphObject.Fill,
             }
         ),
-        new go.Binding('visible', 'reign', (reign) => !!reign)
+        new go.Binding('opacity', 'reign', (reign) => reign ? 1 : 0)
     );
 
 const containerRectangle = () => 

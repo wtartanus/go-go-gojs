@@ -1,6 +1,7 @@
 import * as go from 'gojs';
 
 import { mouseDrop } from '../utils/mouseDrop';
+import { groupSelectionAdornment } from './groupSelectionAdornment';
 
 const $ = go.GraphObject.make;
 
@@ -14,7 +15,9 @@ export const createGroupTemplate = () =>
         {
             layout: groupLayout,
             layerName: 'GroupLayer',
-            mouseDrop
+            mouseDrop,
+            selectionAdornmentTemplate: groupSelectionAdornment(),
+            selectionObjectName: 'mainShape'
         },
         $(
             go.Panel,
@@ -24,6 +27,7 @@ export const createGroupTemplate = () =>
                 'RoundedRectangle',
                 {
                     fill: 'transparent',
+                    name: 'mainShape'
                 }
             ),
             $(go.Placeholder, { padding: 25 })
