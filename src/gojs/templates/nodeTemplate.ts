@@ -9,10 +9,17 @@ import { crowningButton } from './crowningButton';
 const $ = go.GraphObject.make;
 
 const crownAnimation = (reign: string, obj: go.GraphObject) => {
+    console.log(reign, obj);
     const animation = new go.Animation();
     animation.duration = 1000;
-    animation.add(obj, 'opacity', 0, 1);
-    animation.add(obj, 'scale', 0.01, 1);
+    if (reign) {
+        animation.add(obj, 'opacity', 0, 1);
+        animation.add(obj, 'scale', 0.01, 1);
+    } else {
+        animation.add(obj, 'opacity', 1, 0);
+        animation.add(obj, 'scale', 1, 0.01);
+    }
+
     animation.start();
 }
 
