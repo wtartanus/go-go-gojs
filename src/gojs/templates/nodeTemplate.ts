@@ -9,7 +9,6 @@ import { crowningButton } from './crowningButton';
 const $ = go.GraphObject.make;
 
 const crownAnimation = (reign: string, obj: go.GraphObject) => {
-    console.log(reign, obj);
     const animation = new go.Animation();
     animation.duration = 1000;
     if (reign) {
@@ -21,6 +20,8 @@ const crownAnimation = (reign: string, obj: go.GraphObject) => {
     }
 
     animation.start();
+
+    return reign ? 1 : 0;
 }
 
 const toggleHighlight = (obj: go.Part, reverse: boolean = false) => {
@@ -49,7 +50,7 @@ const toggleCrowningButton = (isSelected: boolean, node: go.Node) => {
         }
     }
 
-    return (node as any)._gohashid;
+    return (node as any)._gohashid || '';
 };
 
 export const createNodeTemplate = () =>
