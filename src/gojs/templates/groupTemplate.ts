@@ -2,11 +2,11 @@ import * as go from 'gojs';
 
 import { mouseDrop } from '../utils/mouseDrop';
 import { groupSelectionAdornment } from './groupSelectionAdornment';
+import { Layout } from '../diagram/layout';
 
 const $ = go.GraphObject.make;
 
-const groupLayout = new go.TreeLayout();
-groupLayout.angle = 90;
+const groupLayout = new Layout();
 
 export const createGroupTemplate = () =>
     $(

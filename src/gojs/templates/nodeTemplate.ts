@@ -8,6 +8,14 @@ import { crowningButton } from './crowningButton';
 
 const $ = go.GraphObject.make;
 
+const crownAnimation = (reign: string, obj: go.GraphObject) => {
+    const animation = new go.Animation();
+    animation.duration = 1000;
+    animation.add(obj, 'opacity', 0, 1);
+    animation.add(obj, 'scale', 0.01, 1);
+    animation.start();
+}
+
 const toggleHighlight = (obj: go.Part, reverse: boolean = false) => {
     const background = obj.findObject('mainShape') as go.Shape;
     const color = reverse ? '#fff' : '#ebebeb';
@@ -174,20 +182,20 @@ const crownPanel = () =>
         go.Panel,
         go.Panel.Spot,
         {
-            alignmentFocus: go.Spot.BottomRight,
-            alignment: new go.Spot(0.6, 0),
-            opacity: 0,
-            angle: -40
+            alignment: new go.Spot(0.5, 0, -30, -30),
+            desiredSize: new go.Size(50, 50),
         },
         $(
             go.Picture, 'https://cdn1.iconfinder.com/data/icons/england-cartoon/512/g5323-512.png',
             {
-                width: 60,
-                height: 60,
+                angle: -45,
+                desiredSize: new go.Size(35, 35),
+                opacity: 0,
+                scale: 0.01,
                 imageStretch: go.GraphObject.Fill,
-            }
+            },
+            new go.Binding('opacity', 'reign', crownAnimation)
         ),
-        new go.Binding('opacity', 'reign', (reign) => reign ? 1 : 0)
     );
 
 const containerRectangle = () => 

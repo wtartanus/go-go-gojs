@@ -27,18 +27,38 @@ export class DraggingTool extends go.DraggingTool {
 
     private findAllChildren(parentNode: go.Node): go.Node[] {
         let nodes: go.Node[] = [];
-
+    
+        const spouseLink = parentNode
+            .linksConnected
+            .filter((link) => link.category === 'Marriage')
+            .first()
+    
         parentNode
-            .findTreeChildrenNodes()
-            .each((node: go.Node) => nodes = [...nodes, node]);
-        
-        return [
-            ...nodes,
-            ...nodes.reduce(
-                (children: go.Node[], child: go.Node) =>
-                    [...children, ...this.findAllChildren(child)],
-                []
-            )
-        ];
+            .linksConnected
+            .filter((link) => link.category === 'Marriage')
+            .first()
+            ?.labelNodes
+            .first()
+            .findLinksOutOf()
+            .each((link) => nodes.push(link.toNode));
+    
+        return spouseLink
+            ? [
+                ...nodes,
+                ...nodes.reduce(
+                    (children: go.Node[], child: go.Node) =>
+                        [...children, ...this.findAllChildren(child)],
+                    []
+                ),
+                spouseLink.toNode === parentNode ? spouseLink.fromNode : spouseLink.toNode
+            ]
+            : [
+                ...nodes,
+                ...nodes.reduce(
+                    (children: go.Node[], child: go.Node) =>
+                        [...children, ...this.findAllChildren(child)],
+                    []
+                )
+            ]
     }
 };

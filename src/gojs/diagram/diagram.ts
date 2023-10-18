@@ -4,6 +4,7 @@ import { addModel } from './addModel';
 import { registerTemplates } from './registerTemplates';
 import { addLayers } from './addLayers';
 import { configureTools } from './configureTools';
+import { setupMarriages, setupParents } from '../utils/setupLinks';
 
 const $ = go.GraphObject.make;
 
@@ -18,6 +19,8 @@ export const createDiagram = (diagramDiv: HTMLDivElement) => {
     diagram.undoManager.isEnabled = true;
 
     configureTools(diagram);
+    setupMarriages(diagram);
+    setupParents(diagram);
 
     (window as any).goJsDiagram = diagram;
     
